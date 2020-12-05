@@ -35,6 +35,9 @@ public class playerController : MonoBehaviour
     public float pushSpeed = 4f;
     public float tSmoothTime = 0.2f;
     float tSmoothVelocity;
+    public bool hasSpeedPowerup;
+    public bool hasJumpPowerup;
+    public float powerupTimer;
     Transform cameraT;
 
     //Invulnerability Variables
@@ -95,6 +98,30 @@ public class playerController : MonoBehaviour
         if (Input.GetButtonDown("Weapon4"))
         {
             equipGauntlets();
+        }
+
+        Debug.Log(hasJumpPowerup);
+        Debug.Log(hasSpeedPowerup);
+
+        //JUMP BOOST TIMER
+        if (hasJumpPowerup == true)
+        {
+            jumpSpeed *= 2;
+            powerupTimer -= 1.0f * Time.deltaTime;
+            if(powerupTimer <= 0)
+            {
+                jumpSpeed /= 2;
+            }
+        }
+        //SPEED BOOST TIMER
+        if (hasSpeedPowerup == true)
+        {
+            speed = 100.0f;
+            powerupTimer -= 1.0f * Time.deltaTime;
+            if(powerupTimer <= 0)
+            {
+                speed = 10.0f;
+            }
         }
     }
 
@@ -282,5 +309,24 @@ public class playerController : MonoBehaviour
 
     }
 
+    //COLLISIONS & ITEMS
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name == "HealthPack")
+        {
+            //Restore a unit of health
+        }
 
+        if(other.gameObject.name == "SpeedBoost")
+        {
+            hasSpeedPowerup = true;
+            powerupTimer = 5.0f;
+        }
+
+        if(other.gameObject.name == "JumpBoost")
+        {
+            hasJumpPowerup = true;
+            powerupTimer = 5.0f;
+        }
+    }
 }

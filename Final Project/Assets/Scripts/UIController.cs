@@ -7,11 +7,19 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    //BUTTONS
+    public Image pauseMenu;
     public Image resumeButton;
     public Image restartButton;
     public Image playButton;
     public Image quitButton;
+
+    public void Start()
+    {
+        pauseMenu.enabled = false;
+        resumeButton.enabled = false;
+        restartButton.enabled = false;
+        quitButton.enabled = false;
+    }
 
     void Update()
     {
@@ -39,30 +47,21 @@ public class UIController : MonoBehaviour
         {
             CursorUnlock();
             Time.timeScale = 0;
-            //SHOW PAUSE MENU AND BUTTONS
+            pauseMenu.enabled = true;
+            resumeButton.enabled = true;
+            restartButton.enabled = true;
+            quitButton.enabled = true;
         }
         else
         {
             CursorLock();
             Time.timeScale = 1;
             //HIDE PAUSE MENU AND BUTTONS
+            pauseMenu.enabled = false;
+            resumeButton.enabled = false;
+            restartButton.enabled = false;
+            quitButton.enabled = false;
         }
-    }
-
-    //FAILED SCREEN
-    public void Failed()
-    {
-        CursorUnlock();
-        Time.timeScale = 0;
-        //SHOW MENU WITH "RESTART" OR "QUIT" BUTTONS
-    }
-
-    //PASSED SCREEN
-    public void Passed()
-    {
-        CursorUnlock();
-        Time.timeScale = 0;
-        //LOAD NEXT AREA
     }
 
     //CURSOR LOCKING
@@ -81,6 +80,7 @@ public class UIController : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     //QUIT
@@ -96,4 +96,17 @@ public class UIController : MonoBehaviour
         }
     }
 
+    //LOADING SCENES
+    public void forestPlay()
+    {
+        SceneManager.LoadScene("Forest");
+    }
+    public void tundraPlay()
+    {
+        SceneManager.LoadScene("Tundra");
+    }
+    public void desertPlay()
+    {
+        SceneManager.LoadScene("Desert");
+    }
 }
