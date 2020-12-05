@@ -7,14 +7,26 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public AudioManager audioManager;
+    public countDown levelTimer;
+    public Text pausedText;
+    public Text failedText;
+    public Text passedText;
     public Image pauseMenu;
     public Image resumeButton;
     public Image restartButton;
     public Image playButton;
     public Image quitButton;
 
+    public bool inProgress;
+
     public void Start()
     {
+        inProgress = true;
+        Time.timeScale = 1;
+        pausedText.enabled = false;
+        failedText.enabled = false;
+        passedText.enabled = false;
         pauseMenu.enabled = false;
         resumeButton.enabled = false;
         restartButton.enabled = false;
@@ -23,44 +35,67 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
-        //PAUSE & RESUME
-        if(SceneManager.GetActiveScene().name == "MainMenu")
+        if (inProgress)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            //PAUSE & RESUME
+            if (SceneManager.GetActiveScene().name == "MainMenu")
             {
-                Quit();
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Quit();
+                }
             }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            else
             {
-                PauseResume();
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    PauseResume();
+                }
             }
         }
     }
 
+    //FAILING
+    public void Failed()
+    {
+        CursorUnlock();
+        Time.timeScale = 0;
+        audioManager.PlaySound("QuitRestart");
+        inProgress = false;
+        pauseMenu.enabled = true;
+        failedText.enabled = true;
+        restartButton.enabled = true;
+        quitButton.enabled = true;
+    }
+
+
     //PAUSE & RESUME
     public void PauseResume()
     {
-        if (Time.timeScale == 1)
+        if (inProgress)
         {
-            CursorUnlock();
-            Time.timeScale = 0;
-            pauseMenu.enabled = true;
-            resumeButton.enabled = true;
-            restartButton.enabled = true;
-            quitButton.enabled = true;
-        }
-        else
-        {
-            CursorLock();
-            Time.timeScale = 1;
-            //HIDE PAUSE MENU AND BUTTONS
-            pauseMenu.enabled = false;
-            resumeButton.enabled = false;
-            restartButton.enabled = false;
-            quitButton.enabled = false;
+            if (Time.timeScale == 1)
+            {
+                CursorUnlock();
+                Time.timeScale = 0;
+                audioManager.PlaySound("PauseOn");
+                pausedText.enabled = true;
+                pauseMenu.enabled = true;
+                resumeButton.enabled = true;
+                restartButton.enabled = true;
+                quitButton.enabled = true;
+            }
+            else
+            {
+                CursorLock();
+                Time.timeScale = 1;
+                audioManager.PlaySound("PauseOff");
+                pausedText.enabled = false;
+                pauseMenu.enabled = false;
+                resumeButton.enabled = false;
+                restartButton.enabled = false;
+                quitButton.enabled = false;
+            }
         }
     }
 
@@ -79,8 +114,8 @@ public class UIController : MonoBehaviour
     //RESTART
     public void Restart()
     {
+        audioManager.PlaySound("QuitRestart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1;
     }
 
     //QUIT
@@ -88,10 +123,12 @@ public class UIController : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "MainMenu")
         {
+            audioManager.PlaySound("QuitRestart");
             Application.Quit();
         }
         else
         {
+            audioManager.PlaySound("QuitRestart");
             SceneManager.LoadScene("MainMenu");
         }
     }

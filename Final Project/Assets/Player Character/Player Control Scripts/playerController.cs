@@ -298,11 +298,11 @@ public class playerController : MonoBehaviour
     //I might do stuff w these later
     public void FootR()
     {
-        
+
     }
     public void FootL()
     {
-        
+
     }
     public void Land()
     {
