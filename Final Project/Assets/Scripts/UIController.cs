@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public playerHealth playerHealth;
     public AudioManager audioManager;
     public countDown levelTimer;
     public Text pausedText;
@@ -17,7 +18,7 @@ public class UIController : MonoBehaviour
     public Image restartButton;
     public Image playButton;
     public Image quitButton;
-
+    public Slider healthBar;
     public bool inProgress;
 
     public void Start()
@@ -35,6 +36,9 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
+        //UPDATING HEALTHBAR
+        healthBar.value = playerHealth.pHealth;
+
         if (inProgress)
         {
             //PAUSE & RESUME

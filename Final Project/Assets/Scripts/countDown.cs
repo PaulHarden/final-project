@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class countDown : MonoBehaviour
 {
     public float currentTime = 0f; //tracks the current time on the timer
-    float startingTime = 10f; //defines the time the timer will start at after being defined by the scene
+    float startingTime = 60f; //defines the time the timer will start at after being defined by the scene
 
-    public float forestTime = 10f; 
-    public float tundraTime = 20f; 
-    public float desertTime = 30f;
+    public float forestTime = 60f; 
+    public float tundraTime = 60f; 
+    public float desertTime = 60f;
     //these variables store the starting time for each scene made editable in the inspector window for easy tuning/balancing
 
     public UIController uiController;
@@ -53,7 +53,7 @@ public class countDown : MonoBehaviour
             uiController.Failed();
             //outofTime();
         }
-        Debug.Log(currentTime);
+        //Debug.Log(currentTime);
 
         //DISPLAYING THE TIME LEFT
         clock.text = currentTime.ToString("0");

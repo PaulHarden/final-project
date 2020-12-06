@@ -37,7 +37,7 @@ public class playerHealth : MonoBehaviour
     public void gameOver()
     {
         anim.SetTrigger("Death");
-        StartCoroutine("LoadGameOver");
+        //StartCoroutine("LoadGameOver");
         //Destroy(playerHealthBar.gameObject);
     }
 }

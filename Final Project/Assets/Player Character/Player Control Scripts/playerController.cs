@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour
     private CharacterController charCont;
     private Animator anim;
     private AnimatorStateInfo currentBaseState;
-    private playerHealth health;
+    public playerHealth health;
     public Collider weaponBox;
     //public SoundManager sound;
     //Subweapon Components
@@ -314,7 +314,7 @@ public class playerController : MonoBehaviour
     {
         if(other.gameObject.name == "HealthPack")
         {
-            //Restore a unit of health
+            health.pHealth++;
         }
 
         if(other.gameObject.name == "SpeedBoost")
@@ -327,6 +327,11 @@ public class playerController : MonoBehaviour
         {
             hasJumpPowerup = true;
             powerupTimer = 5.0f;
+        }
+
+        if(other.gameObject.tag == "Enemy")
+        {
+            health.PlayerDamage();
         }
     }
 }

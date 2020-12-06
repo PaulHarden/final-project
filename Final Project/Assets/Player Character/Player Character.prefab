@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 3406097968601374825}
   - component: {fileID: 3406097968950697558}
   - component: {fileID: 3406097968950697579}
+  - component: {fileID: 6016184479370984610}
   - component: {fileID: 3406097968950697578}
   - component: {fileID: 3406097968950697577}
   - component: {fileID: 3406097968950697576}
@@ -562,6 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5c45c8c0d605049b36a23c30f1f018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 6016184479370984610}
   weaponBox: {fileID: 0}
   speed: 10
   jumpSpeed: 10
@@ -569,6 +571,9 @@ MonoBehaviour:
   gravity: 20
   pushSpeed: 4
   tSmoothTime: 0.2
+  hasSpeedPowerup: 0
+  hasJumpPowerup: 0
+  powerupTimer: 0
   iTimer: 3
   iFrame: 0
   shieldR: {fileID: 3406097967679303760}
@@ -576,6 +581,20 @@ MonoBehaviour:
   hammerHandR: {fileID: 3406097968491343107}
   rGauntletR: {fileID: 3406097967496344338}
   lGauntletR: {fileID: 3406097967604257777}
+--- !u!114 &6016184479370984610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3406097968594113029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2fd33eb0099eb418dacd4601afa86c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  pHealth: 0
 --- !u!114 &3406097968950697578
 MonoBehaviour:
   m_ObjectHideFlags: 0
